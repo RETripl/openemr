@@ -512,6 +512,10 @@ if (!empty($_POST['form_csvexport'])) {
                            <label><input type='checkbox' name='form_cb_err'<?php echo ($form_cb_err) ? ' checked' : ''; ?>>
                             <?php echo xlt('Errors') ?></label>
                         </td>
+                        <td>
+                           <label><input type='checkbox' name='form_cb_grpnum'<?php echo ($form_cb_grpnum) ? ' checked' : ''; ?>>
+                            <?php echo xlt('Group Number') ?></label>
+                        </td>
                     </tr>
                 </table>
             </td>
