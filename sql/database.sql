@@ -1806,7 +1806,27 @@ CREATE TABLE  `facility_user_ids` (
   KEY `uuid` (`uuid`)
 ) ENGINE=InnoDB  AUTO_INCREMENT=1;
 
--- --------------------------------------------------------
+-----------------------------------------------------------
+
+--
+-- Table structure for table `fee_schedule`
+--
+
+DROP TABLE IF EXISTS `fee_schedule`;
+CREATE TABLE `fee_schedule` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `insurance_company_id` INT(11) NOT NULL DEFAULT 0,
+    `plan` VARCHAR(20) DEFAULT '',
+    `code` VARCHAR(10) DEFAULT '',
+    `modifier` VARCHAR(2) DEFAULT '',
+    `type` VARCHAR(20) DEFAULT '',
+    `fee` decimal(12,2) DEFAULT NULL,
+    `effective_date` date DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `ins_plan_code_mod_type_date` (`insurance_company_id`, `plan`, `code`, `modifier`, `type`, `effective_date`)
+) ENGINE=InnoDb AUTO_INCREMENT=1;
+
+-----------------------------------------------------------
 
 --
 -- Table structure for table `fee_sheet_options`
@@ -1924,6 +1944,7 @@ CREATE TABLE `form_encounter` (
   `referring_provider_id` INT(11) DEFAULT '0' COMMENT 'referring provider, if any, for this visit',
   `date_end` DATETIME DEFAULT NULL,
   `in_collection` tinyint(1) default NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `uuid` (`uuid`),
   KEY `pid_encounter` (`pid`, `encounter`),
@@ -13358,7 +13379,7 @@ INSERT INTO `list_options` (`list_id`, `option_id`, `title`) VALUES ('lists', 'r
 INSERT INTO `list_options` (`list_id`, `option_id`, `title`, `seq`) VALUES ('recent_patient_columns', 'fname', 'First Name', '10');
 INSERT INTO `list_options` (`list_id`, `option_id`, `title`, `seq`) VALUES ('recent_patient_columns', 'mname', 'Middle Name', '20');
 INSERT INTO `list_options` (`list_id`, `option_id`, `title`, `seq`) VALUES ('recent_patient_columns', 'lname', 'Last Name', '30');
-INSERT INTO `list_options` (`list_id`, `option_id`, `title`, `seq`) VALUES ('recent_patient_columns', 'dob', 'Date of Birth', '40');
+INSERT INTO `list_options` (`list_id`, `option_id`, `title`, `seq`) VALUES ('recent_patient_columns', 'DOB', 'Date of Birth', '40');
 
 CREATE TABLE recent_patients (
     user_id varchar(40) NOT NULL,
